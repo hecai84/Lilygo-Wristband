@@ -33,7 +33,7 @@ def TFTColor( aR, aG, aB ) :
      This assumes rgb 565 layout and will be incorrect for bgr.'''
   return ((aR & 0xF8) << 8) | ((aG & 0xFC) << 3) | (aB >> 3)
 
-ScreenSize = (128, 160)
+ScreenSize = (80, 160)
 
 class TFT(object) :
   """Sainsmart TFT 7735 display driver."""
@@ -109,8 +109,8 @@ class TFT(object) :
     """aLoc SPI pin location is either 1 for 'X' or 2 for 'Y'.
        dc is the DC pin and rst is the reset pin."""
     self._size = ScreenSize
-    self._offset = bytearray([0,0])
-    self.rotate = 0                    #Vertical with top toward pins.
+    self._offset = bytearray([25,0])
+    self.rotate = 180                    #Vertical with top toward pins.
     self._rgb = True                   #color order of rgb.
     self.tfa = 0                       #top fixed area
     self.bfa = 0                       #bottom fixed area

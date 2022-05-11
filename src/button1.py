@@ -1,15 +1,16 @@
-# 在这里写上你的代码 :-)
-from machine import Pin,I2C
+# 复杂的按键处理程序,处理双击,长按动作
+# 通过判断两次按键的时间,判断双击动作
+# 通过定时器,判断长按动作
+from machine import Pin
 from machine import Timer
-from display import Display
 import utime
 
 lastClickTime=0
 pressTime=0
+# 定义定时器
 pressTimer = Timer(1)
+# 按键状态,按下为1,用于处理长按操作之后忽略掉单击操作
 state=0
-initDisplay = False
-lcd=Display()
 # 触摸操作
 #给触摸芯片供电
 touchPow = Pin(25, Pin.OUT)
@@ -23,11 +24,11 @@ def click(pin):
     global pressTimer
     if touch.value():
         state=1
-        pressTimer.init(period=1000, mode=Timer.ONE_SHOT, callback=longPress)
+        pressTimer.init(period=2000, mode=Timer.ONE_SHOT, callback=longPress)
     else:
         clickTime=utime.ticks_ms()
         if state==1:
-            if clickTime-lastClickTime<400:
+            if clickTime-lastClickTime<800:
                 doubleClick()
             else:
                 lastClickTime=clickTime
@@ -36,38 +37,22 @@ def click(pin):
 touch.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=click)
 
 
-
+# 单击
 def click():
     print("click")
     global state
-    global initDisplay
-    global lcd
     state=0
-    if initDisplay:
-        lcd.PrintText("click")
-
+# 双击
 def doubleClick():
     print("double click")
     global state
-    global initDisplay
-    global lcd
-    global sensor
     state=0
-    if initDisplay:   
-        lcd.PrintText("doubleClick")     
-        
-
+# 长按
 def longPress(t):
     print("long press")
     global state
-    global initDisplay
-    global lcd
     state=0
-    if initDisplay==False:
-        initDisplay=True
-        lcd.init()
-    else:
-        lcd.clear()
+
 
 
 

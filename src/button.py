@@ -1,6 +1,8 @@
-# 在这里写上你的代码 :-)
+# 按键处理程序
+# 通过中断的方式,获取按键的动作
 from machine import Pin
 def click(pin):
+    global touch
     if touch.value():
         print('%s keydown!' % (pin))
     else:
