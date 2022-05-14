@@ -1,18 +1,10 @@
-import utime
+
 from machine import I2C, Pin
-from mpu9250 import MPU9250
+from max30102 import MAX30102
+import json
 
-i2c = I2C(scl=Pin(22), sda=Pin(21))
-print("1")
-print(i2c.scan()) # this displays [39]
-print("2")
-sensor = MPU9250(i2c)
-print("3")
+# Alternative:
+i2c = I2C(sda=Pin(15),scl=Pin(13),freq=100000)
+sensor = MAX30102(i2cHexAddress = 0x57, i2c = i2c)
 
-while True:
-    print(sensor.acceleration)
-    print(sensor.gyro)
-    print(sensor.magnetic)
-    print(sensor.temperature)
-
-    utime.sleep_ms(1000)
+print(json.dumps())

@@ -109,7 +109,7 @@ class TFT(object) :
     """aLoc SPI pin location is either 1 for 'X' or 2 for 'Y'.
        dc is the DC pin and rst is the reset pin."""
     self._size = ScreenSize
-    self._offset = bytearray([25,0])
+    self._offset = bytearray([24,0])
     self.rotate = 180                    #Vertical with top toward pins.
     self._rgb = True                   #color order of rgb.
     self.tfa = 0                       #top fixed area
