@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: hecai
+ * @Date: 2022-05-09 14:57:06
+ * @LastEditTime: 2022-05-30 15:56:55
+ * @FilePath: \Lilygo-Wristband\README.md
+-->
 # Lilygo-Wristband
 
 1. 按键程序 button.py,button1.py
@@ -28,4 +35,5 @@
    - 依赖:max39102.py,circular_buffer.py
    - 读取心率
   
-7. 
+7. mqtt的测试代码 mqtt.py
+   - 依赖:umqttsimiple.py
