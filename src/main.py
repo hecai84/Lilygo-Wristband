@@ -2,7 +2,7 @@
 Description: 
 Author: hecai
 Date: 2022-04-26 17:44:03
-LastEditTime: 2022-05-30 15:53:44
+LastEditTime: 2022-05-30 16:13:44
 FilePath: \Lilygo-Wristband\src\main.py
 '''
 # 在这里写上你的代码 :-)
@@ -50,7 +50,7 @@ def do_connect():
         while not wifi.isconnected():
             pass
     print('network config:', wifi.ifconfig())
-
+# 连接wifi
 do_connect()
 
 
@@ -74,6 +74,7 @@ def click(pin):
             else:
                 lastClickTime = clickTime
                 click()
+# 开启按键中断
 touch.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=click)
 
 
@@ -105,8 +106,10 @@ def doubleClick():
     global enableIrq
     if initDisplay:
         enableIrq=False
+        # 测试mqtt的数据发送
+        mqtt_client=connect_and_subscribe()
         for i in range(10):
-            mqtt_client=connect_and_subscribe()
+            lcd.clear()
             tuple_str = json.dumps(sensor.acceleration)  
             mqtt_client.publish(topic_pub,tuple_str)
             lcd.PrintText(tuple_str)
@@ -115,6 +118,7 @@ def doubleClick():
             lcd.PrintText(tuple_str)
             utime.sleep(1)
         lcd.clear()
+        mqtt_client.disconnect()
         enableIrq=True
 
 def longPress(t):
